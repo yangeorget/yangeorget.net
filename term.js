@@ -6,26 +6,9 @@ const commands = {
     help: 'Display available commands',
     clear: 'Clear the terminal screen',
     whoami: 'Display current user information',
-    date: 'Display current date and time',
-    pwd: 'Print working directory',
-    ls: 'List directory contents',
-    cat: 'Display file contents',
-    echo: 'Display a line of text',
-    uname: 'Display system information',
-    uptime: 'Show system uptime',
-    ps: 'Display running processes',
     history: 'Show command history',
-    links: 'Show available links',
-    open: 'Open a link by number (e.g., open 1)',
     exit: 'Exit the terminal'
 };
-
-const availableLinks = [
-    { name: 'GitHub Profile', url: 'https://github.com', id: 1 },
-    { name: 'LinkedIn', url: 'https://linkedin.com', id: 2 },
-    { name: 'Personal Website', url: 'https://example.com', id: 3 },
-    { name: 'Email Contact', url: 'mailto:contact@example.com', id: 4 }
-];
 
 let commandHistory = [];
 let historyIndex = -1;
@@ -34,13 +17,12 @@ let selectedIndex = -1;
 
 function addToHistory(command, output, type = 'output') {
     const entry = document.createElement('div');
-    entry.innerHTML = `<span class="prompt">user@terminal:~$</span> <span class="command">${command}</span>`;
+    entry.innerHTML = `<span class="prompt">user@localhost:~$</span> <span class="command">${command}</span>`;
     history.appendChild(entry);
-
     if (output) {
         const outputDiv = document.createElement('div');
         outputDiv.className = type;
-        outputDiv.textContent = output;
+        outputDiv.innerHTML = output;
         history.appendChild(outputDiv);
     }
 }
@@ -53,11 +35,9 @@ function updateSelectableElements() {
 
 function selectNext() {
     if (selectableElements.length === 0) return;
-
     if (selectedIndex >= 0) {
         selectableElements[selectedIndex].classList.remove('selected');
     }
-
     selectedIndex = (selectedIndex + 1) % selectableElements.length;
     selectableElements[selectedIndex].classList.add('selected');
     selectableElements[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -65,11 +45,9 @@ function selectNext() {
 
 function selectPrevious() {
     if (selectableElements.length === 0) return;
-
     if (selectedIndex >= 0) {
         selectableElements[selectedIndex].classList.remove('selected');
     }
-
     selectedIndex = selectedIndex <= 0 ? selectableElements.length - 1 : selectedIndex - 1;
     selectableElements[selectedIndex].classList.add('selected');
     selectableElements[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -84,10 +62,8 @@ function activateSelected() {
 function executeCommand(command) {
     const cmd = command.trim().toLowerCase();
     const args = command.trim().split(' ');
-
     commandHistory.push(command);
     historyIndex = commandHistory.length;
-
     switch(cmd) {
         case 'help':
             addToHistory(command, '');
@@ -95,7 +71,6 @@ function executeCommand(command) {
             helpDiv.innerHTML = '<span class="info">Available commands:</span>';
             helpDiv.style.marginBottom = '10px';
             history.appendChild(helpDiv);
-
             Object.entries(commands).forEach(([cmd, desc]) => {
                 const cmdDiv = document.createElement('div');
                 cmdDiv.innerHTML = `<span class="success">${cmd.padEnd(12)}</span> <span style="color: var(--base01)">-</span> ${desc}`;
@@ -109,31 +84,7 @@ function executeCommand(command) {
             return;
 
         case 'whoami':
-            addToHistory(command, 'yan', 'success');
-            break;
-
-        case 'date':
-            addToHistory(command, new Date().toString(), 'info');
-            break;
-
-        case 'pwd':
-            addToHistory(command, '/home/yan', 'info');
-            break;
-
-        case 'ls':
-            addToHistory(command, 'Documents  Downloads  Pictures  Projects  README.txt', 'info');
-            break;
-
-        case 'uname':
-            addToHistory(command, 'Linux terminal 5.4.0 #1 SMP x86_64 GNU/Linux', 'info');
-            break;
-
-        case 'uptime':
-            addToHistory(command, 'up 42 days, 13:37, 1 user, load average: 0.15, 0.10, 0.05', 'info');
-            break;
-
-        case 'ps':
-            addToHistory(command, 'PID  TTY     TIME     CMD\n1234 pts/0   00:00:01 bash\n5678 pts/0   00:00:00 ps', 'info');
+            addToHistory(command, 'My name is Yan Georget. You can view my professional profile on https://www.linkedin.com/in/yangeorget.', 'success');
             break;
 
         case 'history':
@@ -145,25 +96,25 @@ function executeCommand(command) {
             });
             break;
 
-        case 'links':
-            addToHistory(command, '');
-            const linksDiv = document.createElement('div');
-            linksDiv.innerHTML = '<span class="info">Available links (use Tab/Shift+Tab to navigate, Enter to open):</span>';
-            linksDiv.style.marginBottom = '10px';
-            history.appendChild(linksDiv);
-
-            availableLinks.forEach(link => {
-                const linkDiv = document.createElement('div');
-                linkDiv.className = 'link-item';
-                linkDiv.innerHTML = `<span class="link-number">[${link.id}]</span>${link.name}`;
-                linkDiv.onclick = () => window.open(link.url, '_blank');
-                history.appendChild(linkDiv);
-            });
-
-            setTimeout(() => {
-                updateSelectableElements();
-            }, 100);
-            break;
+        // case 'links':
+        //     addToHistory(command, '');
+        //     const linksDiv = document.createElement('div');
+        //     linksDiv.innerHTML = '<span class="info">:</span>';
+        //     linksDiv.style.marginBottom = '10px';
+        //     history.appendChild(linksDiv);
+        //
+        //     availableLinks.forEach(link => {
+        //         const linkDiv = document.createElement('div');
+        //         linkDiv.className = 'link-item';
+        //         linkDiv.innerHTML = `<span class="link-number">[${link.id}]</span>${link.name}`;
+        //         linkDiv.onclick = () => window.open(link.url, '_blank');
+        //         history.appendChild(linkDiv);
+        //     });
+        //
+        //     setTimeout(() => {
+        //         updateSelectableElements();
+        //     }, 100);
+        //     break;
 
         case 'exit':
             addToHistory(command, 'Goodbye!', 'warning');
@@ -173,26 +124,7 @@ function executeCommand(command) {
             break;
 
         default:
-            if (cmd.startsWith('open ')) {
-                const linkId = parseInt(args[1]);
-                const targetLink = availableLinks.find(link => link.id === linkId);
-                if (targetLink) {
-                    addToHistory(command, `Opening ${targetLink.name}...`, 'success');
-                    setTimeout(() => window.open(targetLink.url, '_blank'), 500);
-                } else {
-                    addToHistory(command, `Link ${linkId} not found. Use 'links' to see available links.`, 'error');
-                }
-            } else if (cmd.startsWith('echo ')) {
-                const text = command.substring(5);
-                addToHistory(command, text, 'info');
-            } else if (cmd.startsWith('cat ')) {
-                const filename = args[1];
-                if (filename === 'README.txt') {
-                    addToHistory(command, 'This is Yan Georget\'s terminal interface.\nWelcome to my digital workspace!', 'info');
-                } else {
-                    addToHistory(command, `cat: ${filename}: No such file or directory`, 'error');
-                }
-            } else if (cmd === '') {
+            if (cmd === '') {
                 addToHistory('', '');
             } else {
                 addToHistory(command, `bash: ${cmd}: command not found`, 'error');

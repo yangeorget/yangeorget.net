@@ -1,1 +1,34 @@
-# yangeorget.net
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal - Yan Georget</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="terminal">
+    <div class="ascii-art">
+        ██    ██  █████  ███    ██      ██████  ███████  ██████  ██████   ██████  ███████ ████████
+        ██  ██  ██   ██ ████   ██     ██       ██      ██    ██ ██   ██ ██       ██         ██
+        ████   ███████ ██ ██  ██     ██   ███ █████   ██    ██ ██████  ██   ███ █████      ██
+        ██    ██   ██ ██  ██ ██     ██    ██ ██      ██    ██ ██   ██ ██    ██ ██         ██
+        ██    ██   ██ ██   ████      ██████  ███████  ██████  ██   ██  ██████  ███████    ██
+    </div>
+
+    <div class="output">
+        Welcome to my personal website.
+        Type <span class="info">'help'</span> for available commands.
+    </div>
+
+    <div class="history" id="history"></div>
+
+    <div class="input-line">
+        <span class="prompt">you@yangeorget.net:~$</span>
+        <input type="text" class="input-field" id="commandInput" autofocus>
+        <span class="cursor"></span>
+    </div>
+</div>
+<script src="term.js"></script>
+</body>
+</html>

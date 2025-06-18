@@ -47,7 +47,16 @@ const commands = {
         const filename = args[0];
         if (filename === 'README.txt') {
             return [
-                'The code for this website is available on GitHub: https://github.com/yangeorget/yangeorget.net.',
+                'About me',
+                '--------',
+                'I am a graduate from the French Ecole Polytechnique and have a PhD in Computer Science (Constraint Programming).',
+                'I am an experienced CTO who has worked in various environments, from startups to large companies.',
+                'You can find my resume on LinkedIn: https://www.linkedin.com/in/yangeorget/.',
+                ' ',
+                'About this website',
+                '------------------',
+                'This website mimics an old unix terminal.',
+                'The code is available on GitHub: https://github.com/yangeorget/yangeorget.net.',
             ];
         }
         return [`cat: ${filename}: No such file or directory`];

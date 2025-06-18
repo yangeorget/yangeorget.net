@@ -4,29 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache">
-    <title>Terminal - Yan Georget</title>
+    <title>Yan Georget</title>
     <link rel="stylesheet" href="style.css">
+    <script src="term.js"></script>
 </head>
 <body>
-<div class="terminal">
-    <div class="ascii-art">
-        ██    ██  █████  ███    ██      ██████  ███████  ██████  ██████   ██████  ███████ ████████
-         ██  ██  ██   ██ ████   ██     ██       ██      ██    ██ ██   ██ ██       ██         ██
-          ████   ███████ ██ ██  ██     ██   ███ █████   ██    ██ ██████  ██   ███ █████      ██
-           ██    ██   ██ ██  ██ ██     ██    ██ ██      ██    ██ ██   ██ ██    ██ ██         ██
-           ██    ██   ██ ██   ████      ██████  ███████  ██████  ██   ██  ██████  ███████    ██
-    </div>
-
-    <div class="output">Welcome to my personal website. Type <span class="info">'help'</span> for available commands.</div>
-
-    <div class="history" id="history"></div>
-
-    <div class="input-line">
-        <span class="prompt">user@localhost:~$</span>
-        <input type="text" class="input-field" id="commandInput" autofocus>
-        <span class="cursor"></span>
-    </div>
-</div>
-<script src="term.js"></script>
+  <div class="terminal-container" id="terminal"></div>
+  <script>
+      setupTerminal();
+      executeCommand("banner");
+  </script>
 </body>
 </html>

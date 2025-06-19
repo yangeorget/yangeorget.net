@@ -31,13 +31,13 @@ body::after {
 
 .terminal-container {
     font-family: 'Courier New', 'Liberation Mono', monospace;
-    font-size: 14px;
-    text-shadow: 0 0 5px #C8C8C8;
+    font-size: 1.5vw;
+    text-shadow: 0 0 .5vw #C8C8C8;
     line-height: 1.4;
     width: 100vw;
     height: 100vh;
     color: #00ff00;
-    padding: 10px;
+    padding: 1vw;
     overflow-y: auto;
     white-space: pre-wrap;
 }
@@ -76,8 +76,8 @@ A {
 
 .terminal-input {
     font-family: 'Courier New', 'Liberation Mono', monospace;
-    font-size: 14px;
-    text-shadow: 0 0 5px #C8C8C8;
+    font-size: 1.5vw;
+    text-shadow: 0 0 .5vw #C8C8C8;
     background: transparent;
     border: none;
     color: #00ff00;
@@ -97,13 +97,13 @@ A {
 }
 
 .terminal-container::-webkit-scrollbar {
-    width: 12px;
+    width: 1.5vw;
     background: #000;
 }
 
 .terminal-container::-webkit-scrollbar-thumb {
     background: #333;
-    border: 1px solid #000;
+    border: .1vw solid #000;
 }
 
 .terminal-container::-webkit-scrollbar-track {

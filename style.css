@@ -30,7 +30,7 @@ body::after {
 }
 
 .terminal-container {
-    font-family: 'Courier New', 'Liberation Mono', monospace;
+    font-family: 'Courier New', monospace;
     font-size: 1.5vw;
     text-shadow: 0 0 .5vw #C8C8C8;
     line-height: 1.4;
@@ -75,7 +75,7 @@ A {
 }
 
 .terminal-input {
-    font-family: 'Courier New', 'Liberation Mono', monospace;
+    font-family: 'Courier New', monospace;
     font-size: 1.5vw;
     text-shadow: 0 0 .5vw #C8C8C8;
     background: transparent;

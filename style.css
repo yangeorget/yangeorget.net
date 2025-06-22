@@ -7,7 +7,7 @@
 body {
     background-color: black;
     background-image: radial-gradient(
-            rgba(34, 55, 34, 75%), black 120%
+            rgba(24, 55, 24, 75%), black 120%
     );
     overflow: hidden;
     height: 100vh;

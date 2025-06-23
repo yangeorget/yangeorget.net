@@ -31,9 +31,9 @@ body::after {
 
 .terminal-container {
     font-family: 'Courier New', monospace;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     text-shadow: 0 0 .5vw #C8C8C8;
-    line-height: 1.5vw;
+    line-height: 1.2vw;
     width: 100vw;
     height: 100vh;
     color: #00ff00;
@@ -76,9 +76,9 @@ A {
 
 .terminal-input {
     font-family: 'Courier New', monospace;
-    font-size: 1.5vw;
-    line-height: 1.5vw;
-    text-shadow: 0 0 .5vw #C8C8C8;
+    font-size: 1.2vw;
+    line-height: 1.2vw;
+    text-shadow: 0 0 .4vw #C8C8C8;
     background: transparent;
     border: none;
     color: #00ff00;
@@ -98,7 +98,7 @@ A {
 }
 
 .terminal-container::-webkit-scrollbar {
-    width: 1.5vw;
+    width: 1.2vw;
     background: #000;
 }
 
@@ -109,5 +109,13 @@ A {
 
 .terminal-container::-webkit-scrollbar-track {
     background: #000;
+}
+
+#videoFeed {
+    display: none;
+}
+
+#canvas {
+    display: none;
 }
 

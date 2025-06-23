@@ -15,6 +15,7 @@ const commands = {
             '  history    - Show command history',
             '  linkedin   - Open LinkedIn in a new tab',
             '  ls         - List directory contents',
+            '  movie      - Show a movie (press any key to stop)',
             '  picture    - Display a picture',
             '  pwd        - Print working directory',
             '  whoami     - Print current username'
@@ -157,6 +158,41 @@ function setupTerminal(){
     return null;
 }
 
+async function processImage(videoFeed, context, asciiArtDiv, width, height, ascii) {
+    context.drawImage(videoFeed, 0, 0, width, height);
+    const imageData = context.getImageData(0, 0, width, height).data;
+    let asciiArt = "";
+    for (let j = 0; j < height; j++) {
+        for (let i = 0; i < width; i++) {
+            const index = (i + j * width) * 4;
+            let brightness = Math.floor(((imageData[index] + imageData[index + 1] + imageData[index + 2]) * ascii.length) / (3 * 256));
+            asciiArt += ascii[brightness];
+        }
+        asciiArt += "<BR>";
+    }
+    asciiArtDiv.innerHTML = asciiArt;
+}
+
+async function showMovie() {
+    document.getElementById('terminal').innerHTML = `<video id="videoFeed" autoplay playsinline></video><canvas id="canvas"></canvas><div id="asciiArt"></div>`;
+    const videoFeed = document.getElementById('videoFeed');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d', {willReadFrequently: true});
+    const asciiArtDiv = document.getElementById('asciiArt');
+    const ascii =" _.,-=+:;cba!?0123456789$W#@Ñ";
+    const width = 128;
+    const height = 48;
+    let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
+    videoFeed.srcObject = stream;
+    let intervalId = setInterval(function() {processImage(videoFeed, context, asciiArtDiv, width, height, ascii);}, 500);
+    document.addEventListener('keydown', () => {
+        stream.getTracks().forEach(track => track.stop());
+        clearInterval(intervalId);
+        setupTerminal();
+    }, {once: true});
+    return null;
+}
+
 function handleKeyDown(e) {
     const input = e.target;
     if (e.key === 'Enter') {
@@ -189,7 +225,7 @@ function handleKeyDown(e) {
 }
 
 function createPromptInput() {
-    return `<input type="text" class="terminal-input" id="command-input" autocomplete="off" autofocus>`
+    return `<input type="text" class="terminal-input" id="command-input" autocomplete="off">`
 }
 function createPromptSpan(html) {
     return `<span class="prompt-user">guest</span><span class="header">@</span><span class="prompt-host">localhost</span><span class="header">:</span><span class="prompt-path">/home/yangeorget/pub</span><span class="header">$ </span>${html}`;
@@ -217,6 +253,10 @@ function executeCommand(commandLine) {
         // Execute command
         if (cmd === 'clear') {
             setupTerminal()
+            return;
+        }
+        if (cmd === 'movie') {
+            showMovie()
             return;
         }
         let output = null;

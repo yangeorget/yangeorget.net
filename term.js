@@ -181,10 +181,10 @@ async function showMovie() {
     const asciiArtDiv = document.getElementById('asciiArt');
     const ascii =" _.,-=+:;cba!?0123456789$W#@Ñ";
     const width = 128;
-    const height = 48;
+    const height = 64;
     let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
     videoFeed.srcObject = stream;
-    let intervalId = setInterval(function() {processImage(videoFeed, context, asciiArtDiv, width, height, ascii);}, 500);
+    let intervalId = setInterval(function() {processImage(videoFeed, context, asciiArtDiv, width, height, ascii);}, 200);
     document.addEventListener('keydown', () => {
         stream.getTracks().forEach(track => track.stop());
         clearInterval(intervalId);

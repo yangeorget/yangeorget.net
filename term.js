@@ -151,7 +151,7 @@ const commands = {
 };
 
 function setupTerminal(){
-    document.getElementById('terminal').innerHTML = createPromptDiv();
+    document.getElementById('terminal').innerHTML = `<div class="input-line"><span class="prompt-user">guest</span><span class="header">@</span><span class="prompt-host">localhost</span><span class="header">:</span><span class="prompt-path">/home/yangeorget/pub</span><span class="header">$ </span><input type="text" class="terminal-input" id="command-input" autocomplete="off"></div>`;
     const input = document.getElementById('command-input');
     input.addEventListener('keydown', handleKeyDown);
     input.focus();
@@ -224,16 +224,6 @@ function handleKeyDown(e) {
     }
 }
 
-function createPromptInput() {
-    return `<input type="text" class="terminal-input" id="command-input" autocomplete="off">`
-}
-function createPromptSpan(html) {
-    return `<span class="prompt-user">guest</span><span class="header">@</span><span class="prompt-host">localhost</span><span class="header">:</span><span class="prompt-path">/home/yangeorget/pub</span><span class="header">$ </span>${html}`;
-}
-function createPromptDiv() {
-    return `<div class="input-line">${createPromptSpan(createPromptInput())}</div>`;
-}
-
 function executeCommand(commandLine) {
     if (commandLine) {
         commandHistory.push(commandLine);
@@ -244,7 +234,7 @@ function executeCommand(commandLine) {
         // Add the command to terminal history
         const commandDiv = document.createElement('div');
         commandDiv.className = 'terminal-line';
-        commandDiv.innerHTML = createPromptSpan(commandLine);
+        commandDiv.innerHTML = `<span class="prompt-user">guest</span><span class="header">@</span><span class="prompt-host">localhost</span><span class="header">:</span><span class="prompt-path">/home/yangeorget/pub</span><span class="header">$ </span>${commandLine}`;
         terminal.insertBefore(commandDiv, inputLine);
         // Parse command and arguments
         const parts = commandLine.split(' ');

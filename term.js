@@ -26,8 +26,8 @@ function setupTerminal(){
 }
 
 async function showMovie(args) {
-    const width = args[0] ? args[0] : 112;
-    const height = args[1] ? args[1] : 56;
+    const width = args[0] ? args[0] : 160;
+    const height = args[1] ? args[1] : 80;
     document.getElementById('terminal').innerHTML = `<video id="videoFeed" autoplay playsinline></video><div id="asciiArt"></div>`;
     const videoFeed = document.getElementById('videoFeed');
     const canvas = document.getElementById('canvas');

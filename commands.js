@@ -102,8 +102,8 @@ function ls_command(args) {
 }
 
 async function picture_command(args) {
-    const width = args[0] ? args[0] : 80;
-    const height = args[1] ? args[1] : 60;
+    const width = args[0] ? args[0] : 100;
+    const height = args[1] ? args[1] : 90;
     const canvas = document.getElementById('canvas');
     canvas.width = width;
     canvas.height = height;

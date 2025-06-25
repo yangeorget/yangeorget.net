@@ -32,7 +32,7 @@ body::after {
 .terminal-container {
     font-family: 'Courier New', monospace;
     font-size: 1vw;
-    text-shadow: 0 0 .5vw #C8C8C8;
+    text-shadow: 0 0 .4vw #C8C8C8;
     line-height: 1vw;
     width: 100vw;
     height: 100vh;

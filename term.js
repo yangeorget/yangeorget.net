@@ -2,152 +2,19 @@ let commandHistory = [];
 let historyIndex = -1;
 
 const commands = {
-    help: () => {
-        return [
-            'Available commands:',
-            '  cat        - Display file contents',
-            '  clear      - Clear the terminal screen',
-            '  date       - Display current date and time',
-            '  echo       - Display text',
-            '  fortune    - Display a random fortune',
-            '  github     - Open GitHub in a new tab',
-            '  help       - Show this help message',
-            '  history    - Show command history',
-            '  linkedin   - Open LinkedIn in a new tab',
-            '  ls         - List directory contents',
-            '  movie      - Show a movie (press any key to stop)',
-            '  picture    - Display a picture',
-            '  pwd        - Print working directory',
-            '  whoami     - Print current username'
-        ];
-    },
-    banner: () => {
-        return [
-            ' ',
-            '██╗   ██╗ █████╗ ███╗   ██╗     ██████╗ ███████╗ ██████╗ ██████╗  ██████╗ ███████╗████████╗',
-            '╚██╗ ██╔╝██╔══██╗████╗  ██║    ██╔════╝ ██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝╚══██╔══╝',
-            ' ╚████╔╝ ███████║██╔██╗ ██║    ██║  ███╗█████╗  ██║   ██║██████╔╝██║  ███╗█████╗     ██║',
-            '  ╚██╔╝  ██╔══██║██║╚██╗██║    ██║   ██║██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝     ██║',
-            '   ██║   ██║  ██║██║ ╚████║    ╚██████╔╝███████╗╚██████╔╝██║  ██║╚██████╔╝███████╗   ██║',
-            '   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝',
-            ' ',
-            'Type "help" for a list of commands.',
-            ' '
-        ];
-    },
-    cat: (args) => {
-        if (!args[0]) {
-            return ['cat: Missing file operand'];
-        }
-        const filename = args[0];
-        if (filename === 'README.txt') {
-            return [
-                'About me',
-                '--------',
-                'I am a graduate from the French Ecole Polytechnique and have a PhD in Computer Science (Constraint Programming).',
-                'I am an experienced CTO who has worked in various environments, from startups to large companies.',
-                'You can find my resume on LinkedIn: https://www.linkedin.com/in/yangeorget/.',
-                ' ',
-                'About this website',
-                '------------------',
-                'This website mimics an old unix terminal.',
-                'The code is available on GitHub: https://github.com/yangeorget/yangeorget.net.',
-            ];
-        }
-        return [`cat: ${filename}: No such file or directory`];
-    },
-    date: () => {
-        const now = new Date();
-        return [now.toString()];
-    },
-    echo: (args) => {
-        return [args.join(' ')];
-    },
-    fortune: () => {
-        const fortunes = [
-            "For most people, life is like a henhouse ladder: shitty and short.",
-            "I would tell you a joke about UDP, but you might not get it.",
-            "Talk is cheap. Show me the code.",
-            "The best way to predict the future is to invent it.",
-            "There are 10 types of people in the world: those who understand binary and those who don’t.",
-            "There are only two hard things in Computer Science: cache invalidation and naming things."
-        ];
-        return [fortunes[Math.floor(Math.random() * fortunes.length)]];
-    },
-    github: () => {
-        window.open('https://github.com/yangeorget', '_blank');
-        return [];
-    },
-    history: () => {
-        if (commandHistory.length === 0) {
-            return [];
-        }
-        const output = [];
-        commandHistory.slice(-20).forEach((cmd, i) => {
-            output.push(`  ${(i + 1).toString().padStart(3)}: ${cmd}`);
-        });
-        return output;
-    },
-    linkedin: () => {
-        window.open('https://www.linkedin.com/in/yangeorget', '_blank');
-        return [];
-    },
-    ls: (args) => {
-        return ["README.txt"];
-    },
-    picture: () => {
-        return [
-                '                      $&$$$$$&&&&$$                             ',
-                '                 $XXXX$$$$$$$$$$$$$$$$$$$                       ',
-                '              XXXXXXXXXX$$$$$$$$$$$$$$$$$$XX                    ',
-                '            XxxxxxxxXXXXXX$$$$$$$$$$$$$$$$$$Xxx                 ',
-                '          xxx++xxxxxxxxXXXXXXXXXXXXXX$$$$$&&&$XxXX              ',
-                '       Xxx+++++++xxxxxxxxxxXXXXXXXXXXXXX$$&&&&&$XX$             ',
-                '      xx+++++++++x+xxxxxxxxXxxxXXXXXXXXXX$$&&&&&&$X$$           ',
-                '     Xx+;;;;++++x+xxxxxxxxxxxxxXXXXXXXXXX$$$&&&&&&$X$&          ',
-                '    xxx+;;;++++++++xxxxxxxxXxxxxxXXXxXXXX$$$$$&&&&&$$$&         ',
-                '   Xxx+++;+;++++++xxxxxxxxxxxxxxXXXXXXXXX$$$$$$&&&&$$$&         ',
-                '   x+++++++;++++xxxxxxxxxxxxxXXXXXXXXXXXXXX$$$$$$$$$$$$&        ',
-                '   x+++++;;;++++xxxxxxxxxxxXXXXXXXXXXXXXXXXXXXXX$$$$$$$$&       ',
-                '   +++++;+++++++++xxxxxxxxxxXXXXXXXXXXXXXXXXXXXXXXX$XX$$$       ',
-                '   ++++;;;+++++++++xxxxxxxxxxxXxxxxxxxxxxxXXXXXXXXXXXXXXX       ',
-                '   +;;;;;;;+++++++++++xxxxxxxxxxxxxxxxxxxxxxxxxxXXXXXXXXX$      ',
-                '   ;;;;;;;;++;+++++++++++xxxxxxxxxxxxxxxxXXXXXxxXXXXXXXXX$      ',
-                '    ;;;;;;;;;;;++++++++++xxxxxxxxxxxxxxxxXXXXXxXXxxxXXXXXX      ',
-                '    ;;;;;;;;;;;;;;+++++++++xxxxxxxxxxxxxxxXXXxxxxxxXXXXXXx      ',
-                '    ;+;;;;;;;;;;;++++++++++++xxxxxXXxxxxxxxxxxxxxxx++xxXXXX     ',
-                '     ;;;;;;;;;;+;+++++++++++++++xxxxxxx++++++++;:::::;;xXXX     ',
-                '     ;;;;;;;;;;++++++++++++++++++++++++++++;::::.::::;+xXXX     ',
-                '    ++;:;;;;;;;;+++++++++;;;;;:::::;;++xxx;:;:::::.:;;+xXXX$    ',
-                '   +;;;;;;;;;;;;;+;+;;;::::::::..:::;;+xxx+;::;;;;;++xxXXXXX    ',
-                '    ;;;;;;;;;;;;+++;;;;;;:::::....::;;+xxXx+;;::;;;;+xXXXX$$    ',
-                '    +;;;;;;;;;;;;+++;;;;:::;;;;;;::;;;++xxXxx++++++xxxxXXXX     ',
-                '     +;;:;;;;;;;;;;++++;;;;;;;;:;;+;;++++xXXXxxxxxxxXXXXXXX     ',
-                '     ++;;;;;;;;;;;;++++++++++++++++;;++++xxX$$XxxxxxxxxXxxx     ',
-                '      ++;;;+;;;;;;;;++++++++++++++++++++++xXX$$X+++xxxxxxxxX    ',
-                '      ;++++;;;;;;;;;+++++++xxxxx+++++++++xxxxXX$X;;;+++xxxxX    ',
-                '       +++++;;;;;;;;;+++++++x+x++++++++++x+++xxx+x+;;++++xxX    ',
-                '         ++++;;;;;;;;+;++++++++;+++;;;;;;++++++xxx+++++++xxX    ',
-                '              ;;;;;;;;;;++++++;;++++;;;;;:;;;;+xxxxx++++xxxX    ',
-                '              :;;;;;;;;;;;;;;;+++++++;;;;;:;;;++++++++++xxxx    ',
-                '            ...:;;;;;;;;;;;;;;+;+;;;+;;;;;;;;;+;;;+;;+++xxx..   ',
-                '          ......:;;;;;;;;;+++++;;;::;;;;;;;;::;++++++++++x:.....',
-                '        .........;;;;;;;;++++++;;;;;;;;;;;;++;;++++++++;++......',
-                '      ...........::;;;;;;;++++++++;;;;;;;;++;;;;++++++;;+.......',
-                '    ..............;:::;;;;;++++++++++;;;;;;;;;;+++++++;+:.......',
-                '   ...............:;;:::;;;;;;;;+++++++;++++++xxxx++;;+x;::.....',
-                ' .................:;;;:::;;;;;;;;;;+++++++++++++++++;+xx+.:::...',
-                '...................;;;;;::::;;;;;;;;;;++++++++++++;;++xx+....:..',
-                '...................;;;;;;:::;;;;;;;;:;;;;;;;;;;;;;;+++xx+....::.',
-                '...................:;;;;;;;:::;;;;;;;;;:::::::;;;;;++++x+.....::',
-        ];
-    },
-    pwd: () => {
-        return ["/home/yangeorget/pub"];
-    },
-    whoami: () => {
-        return ["guest"];
-    },
+    help: help_command,
+    banner: banner_command,
+    cat: cat_command,
+    date: date_command,
+    echo: echo_command,
+    fortune: fortune_command,
+    github: github_command,
+    history: history_command,
+    linkedin: linkedin_command,
+    ls: ls_command,
+    picture: picture_command,
+    pwd: pwd_command,
+    whoami: whoami_command
 };
 
 function setupTerminal(){
@@ -158,33 +25,28 @@ function setupTerminal(){
     return null;
 }
 
-async function processImage(videoFeed, context, asciiArtDiv, width, height, ascii) {
-    context.drawImage(videoFeed, 0, 0, width, height);
-    const imageData = context.getImageData(0, 0, width, height).data;
-    let asciiArt = "";
-    for (let j = 0; j < height; j++) {
-        for (let i = 0; i < width; i++) {
-            const index = (i + j * width) * 4;
-            let brightness = Math.floor(((imageData[index] + imageData[index + 1] + imageData[index + 2]) * ascii.length) / (3 * 256));
-            asciiArt += ascii[brightness];
-        }
-        asciiArt += "<BR>";
-    }
-    asciiArtDiv.innerHTML = asciiArt;
-}
-
-async function showMovie() {
-    document.getElementById('terminal').innerHTML = `<video id="videoFeed" autoplay playsinline></video><canvas id="canvas"></canvas><div id="asciiArt"></div>`;
+async function showMovie(args) {
+    const width = args[0] ? args[0] : 112;
+    const height = args[1] ? args[1] : 56;
+    document.getElementById('terminal').innerHTML = `<video id="videoFeed" autoplay playsinline></video><div id="asciiArt"></div>`;
     const videoFeed = document.getElementById('videoFeed');
     const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d', {willReadFrequently: true});
+    canvas.width = width;
+    canvas.height = height;
     const asciiArtDiv = document.getElementById('asciiArt');
-    const ascii =" _.,-=+:;cba!?0123456789$W#@Ñ";
-    const width = 128;
-    const height = 64;
+    const context = canvas.getContext('2d', {willReadFrequently: true});
     let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
     videoFeed.srcObject = stream;
-    let intervalId = setInterval(function() {processImage(videoFeed, context, asciiArtDiv, width, height, ascii);}, 200);
+    let intervalId = setInterval(
+        function () {
+            if (videoFeed.readyState === videoFeed.HAVE_ENOUGH_DATA) {
+                context.drawImage(videoFeed, 0 , 0, width, height);
+                const asciiArt = processImage(context, width, height);
+                asciiArtDiv.innerHTML = asciiArt.join("<BR>");
+            }
+            },
+        200
+    );
     document.addEventListener('keydown', () => {
         stream.getTracks().forEach(track => track.stop());
         clearInterval(intervalId);
@@ -193,11 +55,11 @@ async function showMovie() {
     return null;
 }
 
-function handleKeyDown(e) {
+async function handleKeyDown(e) {
     const input = e.target;
     if (e.key === 'Enter') {
         const command = input.value.trim();
-        executeCommand(command);
+        await executeCommand(command);
     } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         if (historyIndex > 0) {
@@ -224,7 +86,7 @@ function handleKeyDown(e) {
     }
 }
 
-function executeCommand(commandLine) {
+async function executeCommand(commandLine) {
     if (commandLine) {
         commandHistory.push(commandLine);
         if (commandHistory.length > 100) commandHistory.shift();
@@ -242,16 +104,19 @@ function executeCommand(commandLine) {
         const args = parts.slice(1);
         // Execute command
         if (cmd === 'clear') {
+            console.log("clear");
             setupTerminal()
             return;
         }
         if (cmd === 'movie') {
-            showMovie()
+            console.log("showMovie");
+            showMovie(args);  // do not await
             return;
         }
         let output = null;
         if (commands[cmd]) {
-            output = commands[cmd](args)
+            console.log(cmd);
+            output = await commands[cmd](args)
         } else {
             output = [`bash: ${cmd}: command not found`];
         }

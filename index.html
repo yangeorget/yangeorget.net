@@ -10,6 +10,9 @@
 
         gtag('config', 'G-DZLD7KB2D6');
     </script>
+    <script src="pictures.js"></script>
+    <script src="commands.js"></script>
+    <script src="term.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="This is the home page of Yan Georget. Yan Georget is an engineer from the French Ecole Polytechnique, he holds a PhD in Computer Science.">
@@ -17,13 +20,17 @@
     <meta name="google-site-verification" content="8TeGAbRy-mGg5m8tiZECH0jBYoWjFbcLNB5MUCcVbHs" />
     <title>Home page of Yan Georget</title>
     <link rel="stylesheet" href="style.css">
-    <script src="term.js"></script>
 </head>
 <body>
-  <div class="terminal-container" id="terminal"></div>
-  <script>
-      setupTerminal();
-      executeCommand("banner");
-  </script>
+    <!-- start of hidden section -->
+    <canvas id="canvas"></canvas>
+    <!-- end of hidden section -->
+    <div id="terminal" class="terminal-container"></div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const command = urlParams.get('command');
+        setupTerminal();
+        executeCommand(command ? command : "banner");
+    </script>
 </body>
 </html>

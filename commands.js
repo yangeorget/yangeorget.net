@@ -130,6 +130,10 @@ function resume_command(args) {
     return [`resume: ${args[0]}: Unexpected language`];
 }
 
+function pwd_command(args) {
+    return ["/home/yangeorget/pub"];
+}
+
 function whoami_command(args) {
    return ["guest"];
 }

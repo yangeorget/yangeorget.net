@@ -14,6 +14,7 @@ const commands = {
     ls: ls_command,
     picture: picture_command,
     pwd: pwd_command,
+    resume: resume_command,
     whoami: whoami_command
 };
 
@@ -35,9 +36,9 @@ async function showMovie(args) {
     canvas.height = height;
     const asciiArtDiv = document.getElementById('asciiArt');
     const context = canvas.getContext('2d', {willReadFrequently: true});
-    let stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
+    const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
     videoFeed.srcObject = stream;
-    let intervalId = setInterval(
+    const intervalId = setInterval(
         function () {
             if (videoFeed.readyState === videoFeed.HAVE_ENOUGH_DATA) {
                 context.drawImage(videoFeed, 0 , 0, width, height);
@@ -104,18 +105,15 @@ async function executeCommand(commandLine) {
         const args = parts.slice(1);
         // Execute command
         if (cmd === 'clear') {
-            console.log("clear");
             setupTerminal()
             return;
         }
         if (cmd === 'movie') {
-            console.log("showMovie");
             showMovie(args);  // do not await
             return;
         }
         let output = null;
         if (commands[cmd]) {
-            console.log(cmd);
             output = await commands[cmd](args)
         } else {
             output = [`bash: ${cmd}: command not found`];

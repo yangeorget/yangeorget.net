@@ -116,8 +116,17 @@ async function picture_command(args) {
     return processImage(context, width, height);
 }
 
-function pwd_command(args) {
-    return ["/home/yangeorget/pub"];
+function resume_command(args) {
+    if (!args[0]) {
+        args[0] = 'en';
+    }
+    if (args[0] === 'en') {
+        return ["https://www.vulpesleo.com/cv_yan_georget_en.pdf"];
+    }
+    if (args[0] === 'fr') {
+        return ["https://www.vulpesleo.com/cv_yan_georget_fr.pdf"];
+    }
+    return [`resume: ${args[0]}: Unexpected language`];
 }
 
 function whoami_command(args) {

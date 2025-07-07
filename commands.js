@@ -29,6 +29,7 @@ function help_command(args) {
         '  movie w h   - Show a movie of size w x h (press any key to stop)',
         '  picture w h - Display a picture of size w x h',
         '  pwd         - Print working directory',
+        '  resume lang - Open a new tab with my resume in the given language (en or fr)',
         '  whoami      - Print current username'
     ];
 }

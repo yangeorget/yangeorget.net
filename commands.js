@@ -122,10 +122,12 @@ function resume_command(args) {
         args[0] = 'en';
     }
     if (args[0] === 'en') {
-        return ["https://www.vulpesleo.com/cv_yan_georget_en.pdf"];
+        window.open("https://www.vulpesleo.com/cv_yan_georget_en.pdf", '_blank');
+        return [];
     }
     if (args[0] === 'fr') {
-        return ["https://www.vulpesleo.com/cv_yan_georget_fr.pdf"];
+        window.open("https://www.vulpesleo.com/cv_yan_georget_fr.pdf", '_blank');
+        return [];
     }
     return [`resume: ${args[0]}: Unexpected language`];
 }
